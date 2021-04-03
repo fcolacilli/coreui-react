@@ -6,22 +6,22 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-import React, { useState, useContext, useEffect, createRef, isValidElement } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import CIcon from '@coreui/icons-react';
-import { useLocation } from 'react-router-dom';
-import { Context } from './CSidebar';
+import React, { useState, useContext, useEffect, createRef, isValidElement } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import CIcon from "@coreui/icons-react"; // import { useLocation } from 'react-router-dom'
+
+import { Context } from "./CSidebar";
 export var DropdownContext = /*#__PURE__*/React.createContext({});
 export var iconProps = function iconProps(icon) {
-  if (typeof icon === 'object') {
+  if (typeof icon === "object") {
     var _objectSpread2;
 
-    var key = icon.size ? 'className' : 'customClasses';
+    var key = icon.size ? "className" : "customClasses";
     return _objectSpread(_objectSpread({}, icon), {}, (_objectSpread2 = {}, _objectSpread2["" + key] = icon.customClasses || "c-sidebar-nav-icon " + icon.className, _objectSpread2));
   } else {
     return {
-      customClasses: 'c-sidebar-nav-icon',
+      customClasses: "c-sidebar-nav-icon",
       name: icon
     };
   }
@@ -58,30 +58,31 @@ var CSidebarNavDropdown = function CSidebarNavDropdown(props) {
   }, [openDropdown]);
 
   var toggle = function toggle() {
-    !dropdownMode && setOpenDropdown(isOpen ? ref.current.parentNode.closest('.c-sidebar-nav-dropdown') : ref.current);
+    !dropdownMode && setOpenDropdown(isOpen ? ref.current.parentNode.closest(".c-sidebar-nav-dropdown") : ref.current);
     setIsOpen(!isOpen);
   };
 
-  var path = '';
+  var path = "";
 
   try {
-    path = useLocation().pathname;
+    // path = useLocation().pathname
+    path = window.location.pathname;
   } catch (e) {
     console.warn(e);
   }
 
   useEffect(function () {
-    if (dropdownMode === 'close') {
+    if (dropdownMode === "close") {
       setIsOpen(false);
-    } else if (dropdownMode === 'closeInactive' && route) {
+    } else if (dropdownMode === "closeInactive" && route) {
       setIsOpen(path.includes(route));
-    } else if ((!dropdownMode || dropdownMode !== 'noAction') && !isOpen && route) {
+    } else if ((!dropdownMode || dropdownMode !== "noAction") && !isOpen && route) {
       setIsOpen(path.includes(route));
     }
   }, [path]); //render
 
-  var classes = classNames('c-sidebar-nav-dropdown', isOpen && 'c-show', className);
-  var iconClasses = classNames('c-sidebar-nav-icon', fontIcon);
+  var classes = classNames("c-sidebar-nav-dropdown", isOpen && "c-show", className);
+  var iconClasses = classNames("c-sidebar-nav-icon", fontIcon);
   return /*#__PURE__*/React.createElement("li", _extends({
     className: classes
   }, attributes, {

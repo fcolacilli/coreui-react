@@ -6,16 +6,19 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { CBreadcrumb, CBreadcrumbItem } from '../index';
-import { Link, useLocation, matchPath } from 'react-router-dom'; //component - CoreUI / CBreadcrumbRouter
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import CBreadcrumb from "./CBreadcrumb";
+import CBreadcrumbItem from "./CBreadcrumbItem"; // import { Link, useLocation, matchPath } from 'react-router-dom';
+
+import Link from "next/link";
+import matchPath from "./matchPath"; //component - CoreUI / CBreadcrumbRouter
 
 var getPaths = function getPaths(pathname) {
-  var paths = ['/'];
-  if (pathname === '/') return paths;
-  pathname.split('/').reduce(function (prev, curr) {
+  var paths = ["/"];
+  if (pathname === "/") return paths;
+  pathname.split("/").reduce(function (prev, curr) {
     var currPath = prev + "/" + curr;
     paths.push(currPath);
     return currPath;
@@ -36,7 +39,7 @@ var CBreadcrumbRouteItem = function CBreadcrumbRouteItem(_ref, fullCurrPath) {
     return /*#__PURE__*/React.createElement(CBreadcrumbItem, {
       key: currPath
     }, /*#__PURE__*/React.createElement(Link, {
-      to: currPath
+      href: currPath
     }, name));
   }
 };
@@ -50,7 +53,8 @@ var CBreadcrumbRouter = function CBreadcrumbRouter(props) {
   var items = null;
 
   if (routes) {
-    var currPath = useLocation().pathname;
+    // const currPath = useLocation().pathname
+    var currPath = window.location.pathname;
     var paths = getPaths(currPath);
     var currRoutes = paths.map(function (currPath) {
       var route = routes.find(function (route) {

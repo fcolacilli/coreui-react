@@ -6,13 +6,14 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-import React, { isValidElement, useContext } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { CLink, CBadge } from '../index';
-import CIcon from '@coreui/icons-react';
-import { iconProps } from './CSidebarNavDropdown';
-import { DropdownContext } from './CSidebarNavDropdown'; //component - CoreUI / CSidebarNavItem
+import React, { isValidElement, useContext } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import CLink from "../link/CLink";
+import CBadge from "../badge/CBadge";
+import CIcon from "@coreui/icons-react";
+import { iconProps } from "./CSidebarNavDropdown";
+import { DropdownContext } from "./CSidebarNavDropdown"; //component - CoreUI / CSidebarNavItem
 
 var CSidebarNavItem = function CSidebarNavItem(props) {
   var children = props.children,
@@ -30,11 +31,11 @@ var CSidebarNavItem = function CSidebarNavItem(props) {
   var _useContext = useContext(DropdownContext),
       isOpen = _useContext.isOpen;
 
-  var classes = classNames('c-sidebar-nav-item', className);
-  var linkClasses = classNames(label ? 'c-sidebar-nav-label' : 'c-sidebar-nav-link', color && "c-sidebar-nav-link-" + color, addLinkClass);
+  var classes = classNames("c-sidebar-nav-item", className);
+  var linkClasses = classNames(label ? "c-sidebar-nav-label" : "c-sidebar-nav-link", color && "c-sidebar-nav-link-" + color, addLinkClass);
   var routerLinkProps = rest.to && {
     exact: true,
-    activeClassName: 'c-active'
+    activeClassName: "c-active"
   };
   return /*#__PURE__*/React.createElement("li", {
     className: classes,
