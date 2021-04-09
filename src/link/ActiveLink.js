@@ -1,39 +1,30 @@
-import React /*, { Children }*/ from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import Link from "next/link";
 
 const ActiveLink = ({
 	children,
+	className,
 	activeClassName = "active",
 	disabled = false,
 	...props
 }) => {
 	const { asPath } = useRouter();
-	// // const child = Children.only(children);
-	// const childClassName = child.props.className || "";
 
 	// pages/index.js will be matched via props.href
 	// pages/about.js will be matched via props.href
 	// pages/[slug].js will be matched via props.as
-	const isActive =
+	const cname =
 		(asPath === props.href || asPath === props.as) && !disabled
-			? activeClassName
-			: "";
+			? [className, activeClassName].join(" ")
+			: className;
 
 	return disabled ? (
-		<span>
-			{/* {React.cloneElement(child, {
-				className: className || null,
-			})} */}
-			{children}
-		</span>
+		<span className={cname}>{children}</span>
 	) : (
-		<Link {...props} className={isActive}>
-			{/* {React.cloneElement(child, {
-				className: className || null,
-			})} */}
-			{children}
+		<Link {...props}>
+			<a className={cname}>{children}</a>
 		</Link>
 	);
 };

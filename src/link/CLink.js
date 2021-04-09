@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import classNames from "classnames";
-// import { NavLink } from "react-router-dom";
 import ActiveLink from "./ActiveLink";
 
 //component - CoreUI / CLink
@@ -28,14 +26,7 @@ const CLink = (props) => {
 
 	// render
 
-	// const classes = classNames(
-	// 	active && "active",
-	// 	disabled && "disabled",
-	// 	className
-	// );
-
 	return to ? (
-		// <NavLink {...rest} className={classes} onClick={click} ref={innerRef} />
 		<ActiveLink
 			{...rest}
 			className={className}
@@ -47,7 +38,7 @@ const CLink = (props) => {
 	) : (
 		<a
 			href={href || "#"}
-			className={classes}
+			className={className}
 			rel={rest.target === "_blank" ? "noopener norefferer" : null}
 			{...rest}
 			onClick={click}

@@ -3,6 +3,7 @@
 	"version": "3.4.6",
 	"description": "CoreUI React 17 Bootstrap 4 components",
 	"license": "MIT",
+	"type": "module",
 	"author": {
 		"name": "CoreUI",
 		"url": "https://coreui.io",
@@ -26,8 +27,7 @@
 		"src/",
 		"tests/",
 		"umd/",
-		"README.md",
-		"npm-postinstall.js"
+		"README.md"
 	],
 	"scripts": {
 		"clean": "nwb clean-module && nwb clean-demo",
@@ -36,7 +36,6 @@
 		"build": "npm run build:lib && npm run build:esm",
 		"build:lib": "rollup --environment BUNDLE:false --c --sourcemap",
 		"build:esm": "cross-env BABEL_ENV=esm-dir babel src --out-dir es --copy-files && del-cli es/**/tests/**",
-		"postinstall": "node npm-postinstall",
 		"storybook": "start-storybook",
 		"jest:test": "cross-env BABEL_ENV=test jest",
 		"jest:coverage": "jest --coverage",

@@ -44,7 +44,7 @@ var CLink = function CLink(props) {
     ref: innerRef
   })) : /*#__PURE__*/React.createElement("a", _extends({
     href: href || "#",
-    className: classes,
+    className: className,
     rel: rest.target === "_blank" ? "noopener norefferer" : null
   }, rest, {
     onClick: click,
