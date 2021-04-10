@@ -1,9 +1,7 @@
 import _extends from "@babel/runtime/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
 import React from "react";
-import PropTypes from "prop-types"; // import classNames from "classnames";
-// import { NavLink } from "react-router-dom";
-
+import PropTypes from "prop-types";
 import ActiveLink from "./ActiveLink"; //component - CoreUI / CLink
 
 var CLink = function CLink(props) {
@@ -26,17 +24,9 @@ var CLink = function CLink(props) {
 
     !disabled && onClick && onClick(e);
   }; // render
-  // const classes = classNames(
-  // 	active && "active",
-  // 	disabled && "disabled",
-  // 	className
-  // );
 
 
-  return to ?
-  /*#__PURE__*/
-  // <NavLink {...rest} className={classes} onClick={click} ref={innerRef} />
-  React.createElement(ActiveLink, _extends({}, rest, {
+  return to ? /*#__PURE__*/React.createElement(ActiveLink, _extends({}, rest, {
     className: className,
     activeClassName: activeClassName,
     disabled: disabled,

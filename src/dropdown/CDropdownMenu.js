@@ -1,18 +1,74 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import dynamic from "next/dynamic";
+import classNames from "classnames";
+import { Context } from "./CDropdown";
+import { createPopper } from "@popperjs/core";
 
 //component - CoreUI / CDropdownMenu
 
-const DynamicDropdownMenu = dynamic(() => import("./_DynamicDropdownMenu.js"), {
-	ssr: false,
-});
-
 const CDropdownMenu = (props) => {
+	const { className, show, placement, modifiers, innerRef, ...rest } = props;
+
+	const { reference, isOpen, setIsOpen, setPlacement } = useContext(Context);
+	const [popperElement, setPopperElement] = useState(null);
+	const [popper, setPopper] = useState(null);
+
+	innerRef && innerRef(popperElement);
+
+	useEffect(() => {
+		setIsOpen(show);
+		setPlacement(placement);
+	}, [show, placement]);
+
+	const classes = classNames(className, "dropdown-menu", "m-0", {
+		show: isOpen,
+	});
+
+	useEffect(() => {
+		if (!reference) {
+			return;
+		}
+		setPopper(
+			createPopper(reference, popperElement, {
+				placement,
+				modifiers: modifiers || [],
+			})
+		);
+
+		return () => {
+			if (popper) {
+				popper.destroy();
+			}
+		};
+	}, [isOpen]);
+
+	const checkClose = (e) => {
+		if ([reference, popperElement].every((el) => !el.contains(e.target))) {
+			setIsOpen(false);
+		}
+	};
+
+	const onKeypress = (e) => e.keyCode == "27" && setIsOpen(false);
+
+	useEffect(() => {
+		if (isOpen) {
+			document.addEventListener("click", checkClose);
+			document.addEventListener("keydown", onKeypress);
+		}
+		return () => {
+			document.removeEventListener("click", checkClose);
+			document.removeEventListener("keydown", onKeypress);
+		};
+	}, [isOpen]);
+
 	return (
-		<React.Fragment>
-			<DynamicDropdownMenu {...props} />
-		</React.Fragment>
+		<div
+			className={classes}
+			ref={setPopperElement}
+			role="menu"
+			aria-hidden={!isOpen}
+			{...rest}
+		/>
 	);
 };
 
